@@ -1,0 +1,51 @@
+{% extends "report/base.html" %} {% if user.is_authenticated %} {% block content %}
+<div class="container-fluid">
+    <!-- <div class="row"> -->
+    <div class="card mb-3">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-md-3 ml-md-auto"></div>
+                <div class="col-md-3 ml-md-auto">
+                    <input class="btn btn-primary" type="button" onclick="printDiv('printableArea')" value="Друкувати" />
+                    <a class="btn btn-primary" href="{% url 'change_report' doc %}" role="button">Редагувати</a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="table-responsive" id="printableArea">
+                    <table class="table table-bordered" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>Назва виробу</th>
+                                <th>Кількість</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for line in lines %}
+                            <tr>
+                                <td>{{ line.product.product_name }}</td>
+                                <td>{{ line.amount }} {{ line.product.unit }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function printDiv(divName) {
+        var strContent = "<html><head></head><body>";
+        var printContents = document.getElementById(divName).innerHTML;
+        var originalContents = document.body.innerHTML;
+
+        document.body.innerHTML = printContents;
+
+        window.print();
+
+        document.body.innerHTML = originalContents;
+    }
+</script> {% endblock %}
+{% else %}
+<a class="btn btn-primary" href="{% url 'login'%}" role="button">Login</a>
+{% endif %}

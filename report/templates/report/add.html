@@ -1,0 +1,48 @@
+{% extends "report/base.html" %} {% if user.is_authenticated %} {% block content %}
+<form action="{% url 'add_lines' %}" method="POST">
+    {% csrf_token %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="list-group" id="list-tab" role="tablist">
+                    {% for category in categories %}
+                    <a class="list-group-item list-group-item-action" data-toggle="list" href="#{{ category.id }}" role="tab">{{ category.category_name }}</a>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="tab-content">
+                    {% for category in categories %}
+                    <div class="tab-pane" id="{{ category.id }}" role="tabpanel">
+                        {% for product in products %} {% if category.id == product.category.id %}
+                        <div class="row">
+                            <div class="input-group-prepend col-8">
+                                <span class="input-group-text" id="{{ product.code }}">{{ product.product_name }}</span>
+                            </div>
+                            <input type="number" min="0" step="0.01" class="form-control col-2" name="{{ product.code }}">
+                            <div class="input-group-append col-2">
+                                <span class="input-group-text">{{ product.unit }}</span>
+                            </div>
+                        </div>
+                        <br /> {% endif %} {% endfor %}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-3 ml-md-auto"></div>
+            <div class="col-md-3 ml-md-auto">
+                <button type="submit" class="btn btn-primary">Зберегти звіт</button>
+            </div>
+        </div>
+    </div>
+</form>
+{% endblock %} {% else %}
+<div class="container">
+    <div class="row">
+        <a class="btn btn-primary" href="{% url 'login'%}" role="button">Login</a>
+    </div>
+</div>
+{% endif %}

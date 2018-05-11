@@ -1,0 +1,45 @@
+{% extends "report/base.html" %} {% if user.is_authenticated %} {% block content %}
+<!-- Example DataTables Card-->
+<div class="container-fluid">
+    <!-- <div class="row"> -->
+    <div class="card mb-3">
+        <div class="card-header">
+            <i class="fa fa-table"></i> Data Table Example</div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Дата створення</th>
+                            <th>Назва документу</th>
+                            <th>Користувач</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>Дата створення</th>
+                            <th>Назва документу</th>
+                            <th>Користувач</th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        {% for doc in docs %}
+                        <tr>
+                            <td>{{ doc.create_data }}</td>
+                            <td>
+                                <a href="{% url 'report_view' doc.pk %}">{{ doc.document_name }}</a>
+                            </td>
+                            <td>{{ doc.user.user.first_name }} {{ doc.user.user.last_name }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+    </div>
+    <!-- </div> -->
+</div>
+{% endblock %} {% else %}
+<a class="btn btn-primary" href="{% url 'login'%}" role="button">Login</a>
+{% endif %}

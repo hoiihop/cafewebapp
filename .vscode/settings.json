@@ -1,0 +1,6 @@
+{
+    "python.pythonPath": "C:\\Users\\Afinik\\.virtualenvs\\CafeWebApp-FXRiBuo-\\scripts\\python.exe",
+    "python.linting.pylintEnabled": false,
+    "python.linting.pep8Enabled": true,
+    "python.linting.enabled": true
+}

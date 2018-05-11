@@ -1,0 +1,30 @@
+{% extends "report/base.html" %} {% if user.is_authenticated %} {% block content %}
+<form action="{% url 'change_lines' doc %}" method="POST">
+    {% csrf_token %}
+    <div class="container-fluid">
+        <div class="row">
+            {% for line in lines %}
+            <div class="input-group mb-3">
+                <div class="input-group-prepend col-8">
+                    <span class="input-group-text" id="{{ line.product.code }}">{{ line.product.product_name }}</span>
+                </div>
+                <input type="number" min="0" step="0.01" class="form-control col-2" placeholder="{{ line.amount }}" name="{{ line.product.code }}">
+                <div class="input-group-append col-2">
+                    <span class="input-group-text">{{ line.product.unit }}</span>
+                </div>
+            </div>
+            <br /> {% endfor %}
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-3 ml-md-auto"></div>
+            <div class="col-md-3 ml-md-auto">
+                <button type="submit" class="btn btn-primary">Зберегти звіт</button>
+            </div>
+        </div>
+    </div>
+</form>
+{% endblock %}
+{% else %}
+<a class="btn btn-primary" href="{% url 'login'%}" role="button">Login</a>
+{% endif %}
