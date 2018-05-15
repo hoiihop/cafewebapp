@@ -6,9 +6,12 @@
             {% for line in lines %}
             <div class="input-group mb-3">
                 <div class="input-group-prepend col-8">
-                    <span class="input-group-text" id="{{ line.product.code }}">{{ line.product.product_name }}</span>
+                    <label for="{{ line.product.code }}">
+                        <span class="input-group-text">{{ line.product.product_name }}</span>
+                    </label>
                 </div>
-                <input type="number" min="0" step="0.01" class="form-control col-2" placeholder="{{ line.amount }}" name="{{ line.product.code }}">
+                <input type="number" min="0" step="0.01" class="form-control col-2" placeholder="{{ line.amount }}" name="{{ line.product.code }}"
+                    id="{{ line.product.code }}">
                 <div class="input-group-append col-2">
                     <span class="input-group-text">{{ line.product.unit }}</span>
                 </div>
@@ -19,12 +22,11 @@
         <div class="row">
             <div class="col-md-3 ml-md-auto"></div>
             <div class="col-md-3 ml-md-auto">
-                <button type="submit" class="btn btn-primary">Зберегти звіт</button>
+                <button type="submit" class="btn btn-success">Зберегти звіт</button>
             </div>
         </div>
     </div>
 </form>
-{% endblock %}
-{% else %}
+{% endblock %} {% else %}
 <a class="btn btn-primary" href="{% url 'login'%}" role="button">Login</a>
 {% endif %}

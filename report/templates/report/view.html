@@ -6,8 +6,8 @@
             <div class="row">
                 <div class="col-md-3 ml-md-auto"></div>
                 <div class="col-md-3 ml-md-auto">
-                    <input class="btn btn-primary" type="button" onclick="printDiv('printableArea')" value="Друкувати" />
-                    <a class="btn btn-primary" href="{% url 'change_report' doc %}" role="button">Редагувати</a>
+                    <input class="btn btn-warning" type="button" onclick="printDiv('printableArea')" value="Друкувати" />
+                    <button class="btn btn-danger" onclick="window.location='{% url 'change_report' doc %}'">Редагувати</button>
                 </div>
             </div>
             <div class="row">
@@ -45,7 +45,6 @@
 
         document.body.innerHTML = originalContents;
     }
-</script> {% endblock %}
-{% else %}
+</script> {% endblock %} {% else %}
 <a class="btn btn-primary" href="{% url 'login'%}" role="button">Login</a>
 {% endif %}

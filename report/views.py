@@ -110,3 +110,4 @@ def add_lines(request):
         new_line.save()
 
     return HttpResponseRedirect('/report/')
+    
